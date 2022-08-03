@@ -1,4 +1,3 @@
-// import React from 'react';
 import style from './Header.module.css';
 import Layout from '../Layout';
 import Logo from './Logo';
