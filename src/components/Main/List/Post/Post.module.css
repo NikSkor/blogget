@@ -14,55 +14,20 @@
   border-radius: 20px;
 }
 
-.delete {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
-  border: 0;
-  background-color: transparent;
-  color: var(--grey99);
-  transition: color .36s ease-in-out;
-  outline: 2px solid transparent;
-  border-radius: 6px;
-}
-
-.delete:hover {
-  color: var(--black);
-}
-
-.delete:focus {
-  outline-color:var(--black);
-}
-
-.delete:active {
-  color: var(--orange);
-}
-
-.delete svg {
-  width: 100%;
-  height: 100%;
-}
-
-.img {
+/* .img {
   grid-area: img;
   border-radius: 20px;
   align-self: center;
-}
+} */
 
-.content {
+/* .content {
   grid-area: content;
   padding-top: 10px;
   padding-right: 10px;
   margin-bottom: 10px;
-}
+} */
 
-.rating {
+/* .rating {
   grid-area: rating;
   display: flex;
   flex-direction: column;
@@ -71,18 +36,18 @@
   justify-content: center;
   padding-right: 10px;
   padding-top: 20px;
-}
+} */
 
-.date {
+/* .date {
   grid-area: data;
   padding-bottom: 10px;
   font-weight: 700;
   font-size: 12px;
   line-height: 130%;
   color: #8f8f8f;
-}
+} */
 
-.linkPost {
+/* .linkPost {
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -95,8 +60,8 @@
   transition: color 0.36s ease-in-out;
 }
 
-.linkPost:after {
-  content: '';
+.linkPost:after { */
+  /* content: '';
   position: absolute;
   inset: 0;
   border-radius: 20px;
@@ -113,9 +78,9 @@
 
 .linkAuthor:hover {
   color: #2d2d2d;
-}
+} */
 
-.up,
+/* .up,
 .down {
   position: relative;
   width: 12px;
@@ -142,7 +107,7 @@
   font-size: 12px;
   line-height: 130%;
   color: #8f8f8f;
-}
+} */
 
 @media (min-width: 580px) {
   .post {
@@ -152,14 +117,14 @@
       'img rating data';
   }
 
-  .delete {
+  /* .delete {
     top: 15px;
     right: 15px;
     width: 25px;
     height: 25px;
-  }
+  } */
 
-.linkPost {
+/* .linkPost {
     font-size: 26px;
   }
   .linkPost:hover {
@@ -172,9 +137,9 @@
 
   .linkAuthor {
     font-size: 14px;
-  }
+  } */
 
-  .ups {
+  /* .ups {
     font-size: 16px;
   }
 
@@ -192,23 +157,23 @@
   .up:hover,
   .down:hover {
     outline-color: #cc6633;
-  }
+  } */
 
   .date {
     font-size: 16px;
     padding-right: 10px;
   }
 
-  .rating {
+  /* .rating {
     padding-top: 0;
     padding-bottom: 10px;
     flex-direction: row;
     justify-content: flex-start;
-  }
+  } */
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .linkPost {
     font-size: 32px;
   }
-}
+} */
