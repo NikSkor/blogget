@@ -30,7 +30,6 @@ export const Auth = ({auth}) => {
           8.00056 64 8V8Z"/>
         </svg>
       }
-
     </button>
   );
 };
