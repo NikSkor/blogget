@@ -4,13 +4,17 @@ import Layout from '../Layout';
 import Tabs from './Tabs';
 import List from './List';
 
-export const Main = () => {
-  return (
-    <main className={style.main}>
-      <Layout>
-        <Tabs />
-        <List />
-      </Layout>
-    </main>
-  );
-};
+
+export const Main = () => (
+  <main className={style.main}>
+    <Layout>
+      <Tabs />
+      <List />
+    </Layout>
+  </main>
+);
+// const addItem = () => {
+  // setList(list.concat(assignId({value: 'Новый пост'})));
+  // setList([...list, assignId({value: 'Новый пост'})]); // аналог
+// };
+

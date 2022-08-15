@@ -1,12 +1,14 @@
 import React from 'react';
 import style from './Search.module.css';
+import {ReactComponent as SearchIcon} from './img/search.svg';
 
 export const Search = () => {
   return (
     <form className={style.form}>
       <input type='search' className={style.search}/>
       <button className={style.button}>
-        <svg className={style.svg} width="128" height="128" viewBox="0 0 128 128" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <SearchIcon className={style.svg} width="128" height="128" />
+        {/* <svg className={style.svg} width="128" height="128" viewBox="0 0 128 128" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <g>
             <path d="M126.25 110.675L101.325 85.75C100.2 84.625
             98.675 84 97.075 84H93C99.9 75.175 104 64.075 104 52C104
@@ -18,7 +20,7 @@ export const Search = () => {
             84 20 69.7 20 52C20 34.325 34.3 20 52 20C69.675
             20 84 34.3 84 52C84 69.675 69.7 84 52 84Z" fill="black"/>
           </g>
-        </svg>
+        </svg> */}
       </button>
     </form>
   );

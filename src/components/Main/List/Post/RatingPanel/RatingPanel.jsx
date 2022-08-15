@@ -1,13 +1,19 @@
 import React from 'react';
 import style from './RatingPanel.module.css';
 import PropTypes from 'prop-types';
+import {Text} from '../../../../../UI/Text';
+
 
 export const RatingPanel = ({ups}) => {
-  console.log(style);
   return (
     <div className={style.rating}>
       <button className={style.up} arial-label='Поднять рейтинг' />
-      <p className={style.ups}>{ups}</p>
+      <Text As='p'
+        size={12}
+        tsize={16}
+        color='grey99'
+        fontWeight='bold'
+        className={style.ups}>{ups}</Text>
       <button className={style.down} arial-label='Понизить рейтинг' />
     </div>
   );
