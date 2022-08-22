@@ -10,21 +10,7 @@ export const Auth = ({token, delToken}) => {
   const [auth, setAuth] = useState({});
   const [isLogout, setIsLogout] = useState(false);
 
-  useEffect(() => {
-    if (!token) return;
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    }).then(response => response.json()).then(({name, icon_img: iconImg}) => {
-      const img = iconImg.replace(/\?.*$/, '');
-      setAuth({name, img});
-    })
-      .catch((err) => {
-        console.err(err);
-        setAuth({});
-      });
-  }, [token]);
+  // console.log(token);
 
   const handleLogout = e => {
     e.preventDefault();
@@ -35,7 +21,28 @@ export const Auth = ({token, delToken}) => {
   const handleExit = e => {
     // e.preventDefault();
     delToken();
+    // setIsLogout(true);
+    setAuth({});
   };
+
+  useEffect(() => {
+    if (!token) return;
+    fetch(`${URL_API}/api/v1/me`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    }).then((response) => {
+      if (response.status === 401) handleExit();
+      response.json().then(({name, icon_img: iconImg}) => {
+        const img = iconImg.replace(/\?.*$/, '');
+        setAuth({name, img});
+      })
+        .catch((err) => {
+          // console.err(err);
+          setAuth({});
+        });
+    });
+  }, [token]);
 
   return (
     <div className={style.container}>
