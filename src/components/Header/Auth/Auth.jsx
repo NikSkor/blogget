@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useContext} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as AuthIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {URL_API} from '../../../api/const';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useState({});
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
+  // const [auth, clearAuth] = useAuth();
   const [isLogout, setIsLogout] = useState(false);
-
-  // console.log(token);
+  const {auth, clearAuth} = useContext(authContext);
 
   const handleLogout = e => {
     e.preventDefault();
-    console.log('kuku');
     !isLogout ? setIsLogout(true) : setIsLogout(false);
   };
 
@@ -22,27 +22,8 @@ export const Auth = ({token, delToken}) => {
     // e.preventDefault();
     delToken();
     // setIsLogout(true);
-    setAuth({});
+    clearAuth();
   };
-
-  useEffect(() => {
-    if (!token) return;
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    }).then((response) => {
-      if (response.status === 401) handleExit();
-      response.json().then(({name, icon_img: iconImg}) => {
-        const img = iconImg.replace(/\?.*$/, '');
-        setAuth({name, img});
-      })
-        .catch((err) => {
-          // console.err(err);
-          setAuth({});
-        });
-    });
-  }, [token]);
 
   return (
     <div className={style.container}>
