@@ -3,7 +3,7 @@ import style from './PostContent.module.css';
 import PropTypes from 'prop-types';
 import {Text} from '../../../../../UI/Text';
 
-export const PostContent = ({title, author}) => {
+export const PostContent = ({title, author, authorLink, linkPost}) => {
   return (
     <div className={style.content}>
       <Text As='h2' className={style.title}>
@@ -11,7 +11,7 @@ export const PostContent = ({title, author}) => {
           size={18}
           tsize={24}
           className={style.linkPost}
-          href="#post"
+          href={linkPost}
         >
           {title}
         </Text>
@@ -21,7 +21,7 @@ export const PostContent = ({title, author}) => {
         tsize={14}
         color='orange'
         className={style.linkAuthor}
-        href="#author"
+        href={authorLink}
       >
         {author}</Text>
     </div>
@@ -31,4 +31,6 @@ export const PostContent = ({title, author}) => {
 PostContent.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
+  linkPost: PropTypes.string,
+  authorLink: PropTypes.string,
 };
