@@ -33,7 +33,7 @@ export const useBest = () => {
             urlImage: data.url,
             ups: data.score,
             authorLink: `${redditUrl}/r/${data.subreddit}`,
-            date: data.created,
+            // date: data.created,
             id: generateRandomId(),
           }
           );
