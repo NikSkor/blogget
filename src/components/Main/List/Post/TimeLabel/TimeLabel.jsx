@@ -10,6 +10,6 @@ export const TimeLabel = ({date}) => {
 };
 
 TimeLabel.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.number,
 };
 

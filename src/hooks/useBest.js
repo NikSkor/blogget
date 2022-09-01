@@ -21,7 +21,7 @@ export const useBest = () => {
       },
     }).then(response => response.json()).
       then((data) => {
-        console.log(data);
+        // console.log(data);
         listArray = [...data.data.children];
         // console.log(data.data.children[3].data.author);
         // console.log(listArray[15]);
@@ -33,7 +33,7 @@ export const useBest = () => {
             urlImage: data.url,
             ups: data.score,
             authorLink: `${redditUrl}/r/${data.subreddit}`,
-            // date: data.created,
+            date: data.created,
             id: generateRandomId(),
           }
           );

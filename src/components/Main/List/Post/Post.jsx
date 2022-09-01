@@ -7,11 +7,11 @@ import DeleteButton from './DeleteButton';
 import AuthorPhoto from './AuthorPhoto';
 import PostContent from './PostContent';
 import RatingPanel from './RatingPanel';
-// import TimeLabel from './TimeLabel';
+import TimeLabel from './TimeLabel';
 
 export const Post = ({postData}) => {
   const {title, author, ups, urlImage, linkPost,
-    authorLink} = postData;
+    authorLink, date} = postData;
   // console.log(postData);
   return (
     <li className={style.post}>
@@ -37,7 +37,7 @@ export const Post = ({postData}) => {
        * где то ещё, она даёт доп функцию Post,
        * а так не надо делать,
        * лучше вынести в отдельный компонент */}
-      {/* <TimeLabel date={date} /> */}
+      <TimeLabel date={date} />
       {/* <time className={style.date}
       dateTime={date}>{formatDate(date)}</time> */}
     </li>
