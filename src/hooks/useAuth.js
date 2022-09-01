@@ -15,16 +15,17 @@ export const useAuth = () => {
       if (response.status === 401) {
         throw new Error(response.status);
       }
-      return response.json().then(({name, icon_img: iconImg}) => {
+      return response.json();
+    })
+      .then(({name, icon_img: iconImg}) => {
         const img = iconImg.replace(/\?.*$/, '');
         setAuth({name, img});
       })
-        .catch((err) => {
-          console.error(err);
-          delToken();
-          setAuth({});
-        });
-    });
+      .catch((err) => {
+        console.error(err);
+        delToken();
+        setAuth({});
+      });
   }, [token]);
 
   const clearAuth = () => setAuth({});

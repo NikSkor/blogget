@@ -1,7 +1,7 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import {URL_API} from '../api/const';
 // import {postsContext} from '../context/postsContext';
-import {useToken} from '../hooks/useToken';
+import {tokenContext} from '../context/tokenContext';
 import {generateRandomId} from '../utils/generateRandomId/generateRandomId';
 
 export const useBest = () => {
@@ -13,7 +13,7 @@ export const useBest = () => {
   // const postsArray = [];
   const redditUrl = 'https://www.reddit.com';
 
-  const [token] = useToken();
+  const {token} = useContext(tokenContext);
   useEffect(() => {
     fetch(`${URL_API}/best`, {
       headers: {
@@ -21,10 +21,9 @@ export const useBest = () => {
       },
     }).then(response => response.json()).
       then((data) => {
-        // console.log(data);
+        console.log(data);
         listArray = [...data.data.children];
         // console.log(data.data.children[3].data.author);
-        // listArray = data.map(data);
         // console.log(listArray[15]);
         listArray.forEach(({data}) => {
           posts.push({
@@ -40,8 +39,8 @@ export const useBest = () => {
           );
         });
         setPostsArray(posts);
-        // console.log(postArray);
       });
-  });
+  }, [token]);
   return postsArray;
 };
+

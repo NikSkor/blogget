@@ -12,6 +12,7 @@ import RatingPanel from './RatingPanel';
 export const Post = ({postData}) => {
   const {title, author, ups, urlImage, linkPost,
     authorLink} = postData;
+  // console.log(postData);
   return (
     <li className={style.post}>
       <AuthorPhoto title={title} img={urlImage}/>
