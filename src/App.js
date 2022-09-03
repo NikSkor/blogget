@@ -1,18 +1,24 @@
 import Header from './components/Header';
 import Main from './components/Main';
-import {useToken} from './hooks/useToken';
+import {TokenContextProvider} from './context/tokenContext';
+import {AuthContextProvider} from './context/authContext';
+import {useBest} from './hooks/useBest';
+import {PostsContextProvider} from './context/postsContext';
 
 function App() {
-  const [token, delToken] = useToken('');
-  console.log(token);
+  // const [token, delToken] = useToken('');
+  // const {Provider} = tokenContext;
+  useBest();
 
   return (
-    <div className="App">
-      <>
-        <Header token={token} delToken={delToken}/>
-        <Main/>
-      </>
-    </div>
+    <TokenContextProvider>
+      <AuthContextProvider>
+        <PostsContextProvider>
+          <Header/>
+          <Main/>
+        </PostsContextProvider>
+      </AuthContextProvider>
+    </TokenContextProvider>
   );
 }
 

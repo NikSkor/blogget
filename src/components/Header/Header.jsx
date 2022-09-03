@@ -4,9 +4,11 @@ import Logo from './Logo';
 import Heading from './Heading';
 import Search from './Search';
 import Auth from './Auth';
-import PropTypes from 'prop-types';
 
-export const Header = ({token, delToken}) => {
+export const Header = () => {
+  // const {Consumer} = tokenContext; старый метод
+
+  // const context = useContext(tokenContext);
   return (
     <header className={style.header}>
       <Layout>
@@ -14,14 +16,20 @@ export const Header = ({token, delToken}) => {
           <Logo/>
           <Heading text='Главная'/>
           <Search/>
-          <Auth token={token} delToken={delToken} />
+          {/* <Consumer>
+            {(context) =>
+              <Auth token={context.token} delToken={context.delToken} />}
+          </Consumer> */}
+          {/* <Auth {...context} /> */}
+          {/* <Auth token={context.token} delToken={context.delToken} /> */}
+          <Auth />
         </div>
       </Layout>
     </header>
   );
 };
 
-Header.propTypes = {
-  token: PropTypes.string,
-  delToken: PropTypes.func,
-};
+// Header.propTypes = {
+//   token: PropTypes.string,
+//   delToken: PropTypes.func,
+// };
