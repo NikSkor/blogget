@@ -31,7 +31,11 @@ export const PostContent = ({title, author, authorLink, linkPost,
       >
         {author}</Text>
       {isModalOpen && <Modal title={title} author={author}
-        markdown={markdown}/>}
+        markdown={markdown}
+        closeModal = {() => {
+          setIsModalOpen(false);
+        }}
+      />}
     </div>
   );
 };
