@@ -2,10 +2,17 @@ import React from 'react';
 import style from './Comments.module.css';
 import {Text} from '../../../UI/Text';
 import PropTypes from 'prop-types';
-// import formatDate from '../../../utils/formatDate/formatDate';
 import TimeLabel from '../../Main/List/Post/TimeLabel';
 
 export const Comments = ({comments}) => {
+  // console.log(comments);
+  comments.forEach(el => {
+    if (!Object.hasOwn(el, 'created')) {
+      comments.pop();
+    }
+  }
+  );
+
   return (
     <ul className={style.list}>
       {comments.map((comment) => (

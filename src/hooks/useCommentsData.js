@@ -8,6 +8,7 @@ export const useCommentsData = (id) => {
   const [commentsData, setCommentsData] = useState({});
 
   useEffect(() => {
+    if (!token) return;
     fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
