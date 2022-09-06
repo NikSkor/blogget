@@ -2,7 +2,7 @@ import {useEffect, useState, useContext} from 'react';
 import {URL_API} from '../api/const';
 // import {postsContext} from '../context/postsContext';
 import {tokenContext} from '../context/tokenContext';
-import {generateRandomId} from '../utils/generateRandomId/generateRandomId';
+// import {generateRandomId} from '../utils/generateRandomId/generateRandomId';
 
 export const useBest = () => {
   // const bik = useContext(postsContext);
@@ -34,7 +34,8 @@ export const useBest = () => {
             ups: data.score,
             authorLink: `${redditUrl}/r/${data.subreddit}`,
             date: data.created,
-            id: generateRandomId(),
+            id: data.id,
+            markdown: data.selftext,
           }
           );
         });
