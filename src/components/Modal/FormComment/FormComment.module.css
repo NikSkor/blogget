@@ -21,6 +21,10 @@
   border: 1px solid transparent
 }
 
+.btnRight {
+  margin-left: 0;
+}
+
 .btn:hover {
   background-color: var(--blue);
 }
