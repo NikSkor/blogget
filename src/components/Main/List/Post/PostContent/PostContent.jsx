@@ -5,7 +5,7 @@ import {Text} from '../../../../../UI/Text';
 import Modal from '../../../../../components/Modal';
 
 export const PostContent = ({title, author, authorLink, linkPost,
-  markdown}) => {
+  markdown, id}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={style.content}>
@@ -30,8 +30,7 @@ export const PostContent = ({title, author, authorLink, linkPost,
         href={authorLink}
       >
         {author}</Text>
-      {isModalOpen && <Modal title={title} author={author}
-        markdown={markdown}
+      {isModalOpen && <Modal id={id}
         closeModal = {() => {
           setIsModalOpen(false);
         }}
@@ -46,4 +45,5 @@ PostContent.propTypes = {
   linkPost: PropTypes.string,
   authorLink: PropTypes.string,
   markdown: PropTypes.string,
+  id: PropTypes.string,
 };

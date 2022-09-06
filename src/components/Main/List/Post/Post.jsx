@@ -11,14 +11,14 @@ import TimeLabel from './TimeLabel';
 
 export const Post = ({postData}) => {
   const {title, author, ups, urlImage, linkPost,
-    authorLink, date, markdown} = postData;
+    authorLink, date, markdown, id} = postData;
   // console.log(postData);
   return (
     <li className={style.post}>
       <AuthorPhoto title={title} img={urlImage}/>
       {/* <img className={style.img} src={notphoto} alt={title} /> */}
       <PostContent title={title} author={author} authorLink={authorLink}
-        linkPost={linkPost} markdown={markdown}/>
+        linkPost={linkPost} markdown={markdown} id={id}/>
       {/* <div className={style.content}>
         <h2 className={style.title}>
           <a className={style.linkPost} href="#post">

@@ -21,7 +21,7 @@ export const useBest = () => {
       },
     }).then(response => response.json()).
       then((data) => {
-        console.log(data);
+        // console.log(data);
         listArray = [...data.data.children];
         // console.log(data.data.children[3].data.author);
         // console.log(listArray[15]);
