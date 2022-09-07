@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 
 export const useBest = () => {
   const [postsArray, setPostsArray] = useState([]);
-  const token = useSelector(state => state.tokenReducer.token);
+  const token = useSelector(state => state.token.token);
   let listArray = [];
   const posts = [];
   const redditUrl = 'https://www.reddit.com';

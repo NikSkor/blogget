@@ -8,6 +8,7 @@ import {delToken} from '../../../store/tokenReducer';
 // import {tokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
 import {useDispatch} from 'react-redux';
+// import {setToken} from '../../../api/token';
 
 
 export const Auth = () => {
@@ -20,6 +21,7 @@ export const Auth = () => {
   const handleLogout = e => {
     e.preventDefault();
     !isLogout ? setIsLogout(true) : setIsLogout(false);
+    // setIsLogout(true);
   };
 
   const handleExit = e => {

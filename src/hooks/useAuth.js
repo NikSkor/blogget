@@ -5,7 +5,7 @@ import {delToken} from '../store/tokenReducer';
 
 export const useAuth = () => {
   const [auth, setAuth] = useState({});
-  const token = useSelector(state => state.tokenReducer.token);
+  const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
   // const {token, delToken} = useContext(tokenContext);
   useEffect(() => {

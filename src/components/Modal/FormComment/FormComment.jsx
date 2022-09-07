@@ -9,7 +9,7 @@ import {updateComment} from '../../../store/commentReducer';
 
 
 export const FormComment = () => {
-  const value = useSelector(state => state.commentReducer.comment);
+  const value = useSelector(state => state.comment.comment);
   const dispath = useDispatch();
 
   const {auth} = useContext(authContext);
