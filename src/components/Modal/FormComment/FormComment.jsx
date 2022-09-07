@@ -5,11 +5,11 @@ import {useRef, useEffect, useState} from 'react';
 // import {commentContext} from '../../../context/commentContext';
 import {authContext} from '../../../context/authContext';
 import {useSelector, useDispatch} from 'react-redux';
-import {updateComment} from '../../../store/index';
+import {updateComment} from '../../../store/commentReducer';
 
 
 export const FormComment = () => {
-  const value = useSelector(state => state.comment);
+  const value = useSelector(state => state.commentReducer.comment);
   const dispath = useDispatch();
 
   const {auth} = useContext(authContext);
