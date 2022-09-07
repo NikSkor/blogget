@@ -1,14 +1,15 @@
-import {useEffect, useState, useContext} from 'react';
+import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {useSelector} from 'react-redux';
+
 
 export const useBest = () => {
   const [postsArray, setPostsArray] = useState([]);
+  const token = useSelector(state => state.token);
   let listArray = [];
   const posts = [];
   const redditUrl = 'https://www.reddit.com';
 
-  const {token} = useContext(tokenContext);
   useEffect(() => {
     if (!token) return;
     fetch(`${URL_API}/best`, {
