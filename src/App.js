@@ -1,24 +1,26 @@
 import Header from './components/Header';
 import Main from './components/Main';
-import {TokenContextProvider} from './context/tokenContext';
+import {Provider} from 'react-redux';
 import {AuthContextProvider} from './context/authContext';
-import {useBest} from './hooks/useBest';
+// import {useBest} from './hooks/useBest';
 import {PostsContextProvider} from './context/postsContext';
+import {store} from './store/index';
+
 
 function App() {
   // const [token, delToken] = useToken('');
   // const {Provider} = tokenContext;
-  useBest();
+  // useBest();
 
   return (
-    <TokenContextProvider>
+    <Provider store={store}>
       <AuthContextProvider>
         <PostsContextProvider>
-          <Header/>
-          <Main/>
+          <Header />
+          <Main />
         </PostsContextProvider>
       </AuthContextProvider>
-    </TokenContextProvider>
+    </Provider>
   );
 }
 

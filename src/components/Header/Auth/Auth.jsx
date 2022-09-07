@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import {ReactComponent as AuthIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {tokenContext} from '../../../context/tokenContext';
+// import {tokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
 
 export const Auth = () => {
-  const {delToken} = useContext(tokenContext);
+  // const {delToken} = useContext(tokenContext);
   // const [auth, clearAuth] = useAuth();
   const [isLogout, setIsLogout] = useState(false);
   const {auth, clearAuth} = useContext(authContext);
@@ -20,7 +20,7 @@ export const Auth = () => {
 
   const handleExit = e => {
     // e.preventDefault();
-    delToken();
+    // delToken();
     // setIsLogout(true);
     clearAuth();
   };

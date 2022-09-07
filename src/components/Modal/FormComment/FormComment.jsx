@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import style from './FormComment.module.css';
 import {Text} from '../../../UI/Text';
 import {useRef, useEffect, useState} from 'react';
+// import {commentContext} from '../../../context/commentContext';
+import {authContext} from '../../../context/authContext';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateComment} from '../../../store/index';
 
 
 export const FormComment = () => {
-  const confirmRef = useRef(null);
+  const value = useSelector(state => state.comment);
+  const dispath = useDispatch();
+
+  const {auth} = useContext(authContext);
   const textAreaRef = useRef(null);
-  const [textState, setTextState] = useState('');
+  // const {setValue} = useContext(commentContext);
   const [isOpenButton, setIsOpenButton] = useState(true);
   const [isOpenComment, setIsOpenComment] = useState(false);
 
@@ -17,28 +24,37 @@ export const FormComment = () => {
     setIsOpenComment(true);
   };
 
-  const handleChange = e => {
-    const target = e.target;
-    if (target.value !== '') setTextState(target.value);
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(value);
   };
 
-  const handleClick = e => {
-    e.preventDefault();
-    const target = e.target;
-    if (target === confirmRef.current) {
-      console.log(textState);
-    }
+  const handleChange = e => {
+    dispath(updateComment(e.target.value));
   };
+
+  // const handleChange = e => {
+  //   const target = e.target;
+  //   if (target.value !== '') setTextState(target.value);
+  // };
+
+  // const handleClick = e => {
+  //   e.preventDefault();
+  //   const target = e.target;
+  //   if (target === confirmRef.current) {
+  //     console.log(textState);
+  //   }
+  // };
 
   const handleFocus = e => {
     textAreaRef.current.focus();
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClick);
+    // document.addEventListener('click', handleClick);
     document.addEventListener('click', handleFocus);
     return () => {
-      document.removeEventListener('click', handleClick);
+      // document.removeEventListener('click', handleClick);
       document.removeEventListener('click', handleFocus);
     };
   });
@@ -49,12 +65,12 @@ export const FormComment = () => {
         <button className={style.btn + ' ' + style.btnRight}
           onClick={handleComment}>Написать комментарий</button>}
       {isOpenComment &&
-        <form className={style.form}>
+        <form className={style.form} onSubmit={handleSubmit}>
           <Text as='h3' size={14} tsize={18}>
-            Имя авторизованного пользователя</Text>
+            {auth.name}</Text>
           <textarea className={style.textarea} onChange={handleChange}
-            ref={textAreaRef}></textarea>
-          <button className={style.btn} ref={confirmRef}>Отправить</button>
+            value={value} ref={textAreaRef}></textarea>
+          <button className={style.btn}>Отправить</button>
         </form>
       }
     </>

@@ -1,13 +1,14 @@
-import {useEffect, useState, useContext} from 'react';
+import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {useSelector} from 'react-redux';
 
 
 export const useCommentsData = (id) => {
-  const {token} = useContext(tokenContext);
+  const token = useSelector(state => state.token);
   const [commentsData, setCommentsData] = useState({});
 
   useEffect(() => {
+    if (!token) return;
     fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
