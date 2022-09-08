@@ -6,6 +6,7 @@ import {AuthContextProvider} from './context/authContext';
 import {PostsContextProvider} from './context/postsContext';
 import {updateToken} from './store/tokenReducer';
 import {getToken} from './api/token';
+// import {store} from './store';
 
 
 function App() {
