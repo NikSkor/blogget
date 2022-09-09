@@ -1,10 +1,34 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import {useBest} from '../../../hooks/useBest';
 import style from './List.module.css';
 import Post from './Post';
-import {postsContext} from '../../../context/postsContext';
+// import {postsContext} from '../../../context/postsContext';
+// import {useSelector} from 'react-redux';
 
 export const List = () => {
-  const postsArray = useContext(postsContext);
+  // const postsArray = useContext(postsContext);
+  const data = useBest();
+  const postsData = [];
+  const redditUrl = 'https://www.reddit.com';
+
+  data.forEach(({data}) => {
+    postsData.push({
+      title: data.title,
+      author: data.author,
+      linkPost: `${redditUrl}${data.permalink}`,
+      urlImage: data.url,
+      ups: data.score,
+      authorLink: `${redditUrl}/r/${data.subreddit}`,
+      date: data.created,
+      id: data.id,
+      markdown: data.selftext,
+    }
+    );
+  });
+
+  console.log(postsData);
+
+  // console.log(postsData);
   // console.log(postsArray);
   // const postsData = [
   //   {
@@ -52,7 +76,7 @@ export const List = () => {
   return (
     <ul className={style.list}>
       {
-        postsArray.map((postsItem) => (
+        postsData.map((postsItem) => (
           <Post key={postsItem.id} postData={postsItem} />
         ))
       }

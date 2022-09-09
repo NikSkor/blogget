@@ -1,33 +1,36 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as AuthIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-// import {tokenContext} from '../../../context/tokenContext';
-import {authContext} from '../../../context/authContext';
+import {delToken} from '../../../store/tokenReducer';
+import {useDispatch} from 'react-redux';
+import {useAuth} from '../../../hooks/useAuth';
+import PreLoader from '../../../UI/PreLoader';
+
 
 export const Auth = () => {
-  // const {delToken} = useContext(tokenContext);
-  // const [auth, clearAuth] = useAuth();
+  const dispatch = useDispatch();
   const [isLogout, setIsLogout] = useState(false);
-  const {auth, clearAuth} = useContext(authContext);
+  const [auth, loading, clearAuth] = useAuth();
 
   const handleLogout = e => {
     e.preventDefault();
     !isLogout ? setIsLogout(true) : setIsLogout(false);
+    // setIsLogout(true);
   };
 
   const handleExit = e => {
-    // e.preventDefault();
-    // delToken();
-    // setIsLogout(true);
+    dispatch(delToken());
     clearAuth();
   };
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (
+        <PreLoader/>
+      ) : auth.name ? (
         <>
           <button className={style.btn}
             onClick={handleLogout}
