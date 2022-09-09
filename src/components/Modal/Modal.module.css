@@ -39,6 +39,19 @@
   color: var(--orange);
 }
 
+.loadBlock {
+  display: flex;
+  justify-content: center;
+}
+
+.loadTitle {
+  /* display: none; */
+  color: #cc6633;
+  margin: 0;
+  margin-right: 20px;
+  padding: 0;
+}
+
 .close {
   position: absolute;
   top: 15px;
