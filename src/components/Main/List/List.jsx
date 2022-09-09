@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Outlet, useParams} from 'react-router-dom';
 // import {useBest} from '../../../hooks/useBest';
 import {postsDataRequestAsync} from '../../../store/postsDataReducer/action';
 import style from './List.module.css';
@@ -14,6 +15,12 @@ export const List = () => {
   const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
+  const {page} = useParams();
+  // console.log(page);
+
+  useEffect(() => {
+    dispatch(postsDataRequestAsync(page));
+  }, [page]);
 
   data.forEach(({data}) => {
     postsData.push({
@@ -41,6 +48,12 @@ export const List = () => {
     });
 
     observer.observe(endList.current);
+
+    return () => {
+      if (endList.current) {
+        observer.unobserve(endList.current);
+      }
+    };
   }, [endList.current]);
 
   // console.log(postsData);
@@ -91,13 +104,16 @@ export const List = () => {
   // ];
 
   return (
-    <ul className={style.list}>
-      {
-        postsData.map((postsItem) => (
-          <Post key={postsItem.id} postData={postsItem} />
-        ))
-      }
-      <li ref={endList} className={style.end}></li>
-    </ul>
+    <>
+      <ul className={style.list}>
+        {
+          postsData.map((postsItem) => (
+            <Post key={postsItem.id} postData={postsItem} />
+          ))
+        }
+        <li ref={endList} className={style.end}></li>
+      </ul>
+      <Outlet/>
+    </>
   );
 };

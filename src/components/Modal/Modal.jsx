@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import style from './Modal.module.css';
 import {ReactComponent as CloseIcon} from './img/close.svg';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import {useRef} from 'react';
 import {useEffect, useState} from 'react';
@@ -11,8 +11,11 @@ import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
 import {useSelector} from 'react-redux';
 import PreLoader from '../../UI/PreLoader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({closeModal, id}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const status = useSelector(state => state.commentsData.statusLoader);
   const error = useSelector(state => state.commentsData.error);
@@ -43,16 +46,18 @@ export const Modal = ({closeModal, id}) => {
   const handleClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
-      closeModal();
+      // closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
   const handleClose = e => {
-    closeModal();
+    // closeModal();
+    navigate(`/category/${page}`);
   };
 
   const handleEscape = e => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') navigate(`/category/${page}`);
   };
 
   useEffect(() => {
@@ -126,7 +131,7 @@ export const Modal = ({closeModal, id}) => {
   );
 };
 
-Modal.propTypes = {
-  id: PropTypes.string,
-  closeModal: PropTypes.func,
-};
+// Modal.propTypes = {
+//   id: PropTypes.string,
+//   closeModal: PropTypes.func,
+// };

@@ -9,12 +9,13 @@ import {ReactComponent as HotIcon} from './img/hot.svg';
 import {ReactComponent as TopIcon} from './img/top.svg';
 import {debounceRaf} from '../../../utils/debounce/debounce';
 import {Text} from '../../../UI/Text';
+import {useNavigate} from 'react-router-dom';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon},
-  {value: 'Топ', Icon: TopIcon},
-  {value: 'Лучшие', Icon: BestIcon},
-  {value: 'Горячие', Icon: HotIcon},
+  {value: 'Главная', Icon: HomeIcon, link: 'rising'},
+  {value: 'Топ', Icon: TopIcon, link: 'top'},
+  {value: 'Лучшие', Icon: BestIcon, link: 'best'},
+  {value: 'Горячие', Icon: HotIcon, link: 'hot'},
 ].map(assignId);
 
 
@@ -22,6 +23,7 @@ export const Tabs = ({list, setList, addItem}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropDown, setIsDropDown] = useState(true);
   const [headerMenu, setHeaderMenu] = useState('Меню');
+  const navigate = useNavigate();
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -41,9 +43,9 @@ export const Tabs = ({list, setList, addItem}) => {
     };
   }, []);
 
-  const handleClick = value => {
-    setHeaderMenu(value);
-  };
+  // const handleClick = value => {
+  //   setHeaderMenu(value);
+  // };
 
   return (
     <div className={style.container}>
@@ -61,10 +63,13 @@ export const Tabs = ({list, setList, addItem}) => {
           onClick={() => setIsDropdownOpen(false)}
           className={style.list}>
           {
-            LIST.map(({value, id, Icon}) => (
+            LIST.map(({value, link, id, Icon}) => (
               <li className={style.item} key={id}>
                 <Text As='button' className={style.btn}
-                  onClick={() => handleClick(value)}>
+                  onClick={() => {
+                    setHeaderMenu(value);
+                    navigate(`/category/${link}`);
+                  }}>
                   {value}
                   {Icon && <Icon width={30} height={30} />}
                 </Text>

@@ -6,6 +6,7 @@ export const POSTS_DATA_REQUEST_SUCCESS = 'POSTS_DATA_REQUEST_SUCCESS';
 export const POSTS_DATA_REQUEST_ERROR = 'POSTS_DATA_REQUEST_ERROR';
 export const POSTS_DATA_REQUEST_SUCCESS_AFTER =
   'POSTS_DATA_REQUEST_SUCCESS_AFTER';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 
 export const postDataRequest = () => ({
@@ -29,18 +30,27 @@ export const postDataRequestError = (error) => ({
   error,
 });
 
-export const postsDataRequestAsync = () => (dispatch, getState) => {
-  // let listArray = [];
-  // const posts = [];
-  // const redditUrl = 'https://www.reddit.com';
+export const changePage = (page) => ({
+  type: CHANGE_PAGE,
+  page
+});
+
+export const postsDataRequestAsync = (newPage) => (dispatch, getState) => {
+  let page = getState().postsData.page;
+  if (newPage) {
+    page = newPage;
+    dispatch(changePage(page));
+  }
+
   const token = getState().token.token;
   const after = getState().postsData.after;
   const loading = getState().postsData.loading;
   const isLast = getState().postsData.isLast;
 
+
   if (!token || loading || isLast) return;
   dispatch(postDataRequest());
-  axios(`${URL_API}/best?limit=10&${after ? `after=${after}` : ''}`, {
+  axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },

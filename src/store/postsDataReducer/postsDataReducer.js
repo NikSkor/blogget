@@ -2,7 +2,8 @@ import {
   POSTS_DATA_REQUEST_SUCCESS,
   POSTS_DATA_REQUEST,
   POSTS_DATA_REQUEST_ERROR,
-  POSTS_DATA_REQUEST_SUCCESS_AFTER
+  POSTS_DATA_REQUEST_SUCCESS_AFTER,
+  CHANGE_PAGE
 } from './action';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   error: '',
   after: '',
   isLast: false,
+  page: '',
 };
 
 export const postsDataReducer = (state = initialState, action) => {
@@ -44,6 +46,13 @@ export const postsDataReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error,
+      };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        page: action.page,
+        after: '',
+        isLast: false,
       };
     default:
       return state;
