@@ -7,7 +7,27 @@ import Post from './Post';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
-  const postsData = useBest();
+  const data = useBest();
+  const postsData = [];
+  const redditUrl = 'https://www.reddit.com';
+
+  data.forEach(({data}) => {
+    postsData.push({
+      title: data.title,
+      author: data.author,
+      linkPost: `${redditUrl}${data.permalink}`,
+      urlImage: data.url,
+      ups: data.score,
+      authorLink: `${redditUrl}/r/${data.subreddit}`,
+      date: data.created,
+      id: data.id,
+      markdown: data.selftext,
+    }
+    );
+  });
+
+  console.log(postsData);
+
   // console.log(postsData);
   // console.log(postsArray);
   // const postsData = [
