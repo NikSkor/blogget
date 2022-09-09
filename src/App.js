@@ -21,6 +21,7 @@ function App() {
           <Main />
         </>
       }/>
+      {/* <Route path='/' element={<App/>} /> */}
     </Routes>
   );
 }
