@@ -26,7 +26,7 @@ export const commentsDataRequestAsync =
     const token = getState().token.token;
     if (!token) return;
     // dispatch(commentsDataSlice.actions.commentsDataRequest());
-    return axios(`${URL_API}/comments/${id}`, {
+    return axios(`${URL_API}/comfments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -51,10 +51,12 @@ export const commentsDataRequestAsync =
           // dispatch(commentsDataSlice.actions.
           //   commentsDataRequestSuccess({post, comments}));
         },
-      )
-      .catch((error) => ({error: error.toString()})
-      // .catch((error) => ({error: error.toString()})
-        // dispatch(commentsDataSlice.actions
-        //   .commentsDataError({error: error.toString()}));
       );
+    // .catch((error) => {
+    //   return {error: error.toString()};
+    // }
+    // // .catch((error) => ({error: error.toString()})
+    //   // dispatch(commentsDataSlice.actions
+    //   //   .commentsDataError({error: error.toString()}));
+    // );
   });
