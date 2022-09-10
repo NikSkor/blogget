@@ -32,7 +32,7 @@ export const postDataRequestError = (error) => ({
 
 export const changePage = (page) => ({
   type: CHANGE_PAGE,
-  page
+  page,
 });
 
 export const postsDataRequestAsync = (newPage) => (dispatch, getState) => {

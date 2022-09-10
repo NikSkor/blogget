@@ -6,12 +6,17 @@ import {commentsDataRequestAsync} from '../store/commentsDataReducer/action';
 
 export const useCommentsData = (id) => {
   const token = useSelector(state => state.token.token);
-  const commentsData = useSelector(state => state.commentsData.commentsData);
+  // const commentsData = {};
+  const post = useSelector(state => state.commentsData.post);
+  const comments = useSelector(state => state.commentsData.comments);
   const dispatch = useDispatch();
+  // commentsData = {post, comments};
+  // commentsData.post = post;
+  // commentsData.comments = comments;
 
   useEffect(() => {
     // if (!token) return;
     dispatch(commentsDataRequestAsync(id));
   }, [token]);
-  return commentsData;
+  return {post, comments};
 };
