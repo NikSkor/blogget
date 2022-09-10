@@ -8,7 +8,7 @@ import {Link, useParams} from 'react-router-dom';
 export const PostContent = ({title, author, authorLink, linkPost,
   markdown, id}) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
-  const page = useParams();
+  const {page} = useParams();
   return (
     <div className={style.content}>
       <Text As='h2' className={style.title}>
