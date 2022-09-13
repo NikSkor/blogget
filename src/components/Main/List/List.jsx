@@ -41,7 +41,7 @@ export const List = () => {
     // if (!postsData.length) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsDataRequestAsync());
+        dispatch(postsDataRequestAsync(page));
       }
     }, {
       rootMargin: '100px',

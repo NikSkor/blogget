@@ -26,7 +26,7 @@ export const commentsDataRequestAsync =
     const token = getState().token.token;
     if (!token) return;
     // dispatch(commentsDataSlice.actions.commentsDataRequest());
-    return axios(`${URL_API}/comfments/${id}`, {
+    return axios(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
