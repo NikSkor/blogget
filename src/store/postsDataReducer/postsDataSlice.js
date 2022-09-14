@@ -16,7 +16,7 @@ export const postsDataSlice = createSlice({
   initialState,
   reducers: {
     changePage: (state, action) => {
-      state.page = action.payload;
+      state.page = action.page;
       state.after = '';
       state.isLast = false;
       state.postsData = [];
@@ -26,11 +26,12 @@ export const postsDataSlice = createSlice({
     [postsDataRequestAsync.pending.type]: (state) => {
       state.loading = true;
       state.error = '';
+      state.postsData = [];
     },
     [postsDataRequestAsync.fulfilled.type]: (state, action) => {
       state.loading = false;
       state.error = '';
-      state.postsData = [...state.postsData, action.payload.postsData];
+      state.postsData = [...state.postsData, ...action.payload.children];
       state.after = action.payload.after;
       state.isLast = !action.payload.after;
     },

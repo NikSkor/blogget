@@ -12,11 +12,12 @@ export const List = () => {
   // const postsArray = useContext(postsContext);
   const data = useSelector(state => state.postsData.postsData);
   const postsData = [];
+  // console.log(data);
   const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
-  // console.log(page);
+  console.log(page);
 
   useEffect(() => {
     dispatch(postsDataRequestAsync(page));

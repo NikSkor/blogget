@@ -42,7 +42,7 @@ export const commentsDataSlice = createSlice({
       state.post = action.payload.post;
       state.comments = action.payload.comments;
       state.loading = false;
-      state.error = action.payload.error;
+      state.error = '';
       state.statusLoader = 'loaded';
     },
     [commentsDataRequestAsync.rejected.type]: (state, action) => {

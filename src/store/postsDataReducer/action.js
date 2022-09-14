@@ -50,10 +50,10 @@ export const postsDataRequestAsync =
     const page = newPage || getState().postsData.page;
     const token = getState().token.token;
     const after = getState().postsData.after;
-    const loading = getState().postsData.loading;
+    // const loading = getState().postsData.loading;
     const isLast = getState().postsData.isLast;
 
-    if (!token || loading || isLast) return;
+    if (!token || isLast) return;
 
     return axios(`${URL_API}/${page}?limit=10&
       ${after ? `after=${after}` : ''}`, {
