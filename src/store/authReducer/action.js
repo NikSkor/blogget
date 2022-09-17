@@ -36,7 +36,7 @@ export const authLogout = () => ({
 //   createAsyncThunk('auth/fetch', (id, {getState, dispatch}) => {
 //     const token = getState().token.token;
 //     if (!token) return;
-//     return axios(`${URL_API}/api/v1/me`, {
+//     return axios(`${URL_API}/api/v/e`, {
 //       headers: {
 //         Authorization: `bearer ${token}`,
 //       },
@@ -48,7 +48,8 @@ export const authLogout = () => ({
 //       })
 //       .catch((err) => {
 //         dispatch(delToken());
-//         dispatch(authSlice.actions.authLogout());
+//         console.log('kuku');
+//         return err;
 //       });
 //   });
 

@@ -2,7 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Outlet, useParams} from 'react-router-dom';
 // import {useBest} from '../../../hooks/useBest';
-import {postsDataRequestAsync} from '../../../store/postsDataReducer/action';
+import {postsDataRequestAsync}
+  from '../../../store/postsDataReducer/action';
 import style from './List.module.css';
 import Post from './Post';
 // import {postsContext} from '../../../context/postsContext';
@@ -17,7 +18,7 @@ export const List = () => {
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
-  console.log(page);
+
 
   useEffect(() => {
     dispatch(postsDataRequestAsync(page));
@@ -47,7 +48,6 @@ export const List = () => {
     }, {
       rootMargin: '100px',
     });
-
     observer.observe(endList.current);
 
     return () => {

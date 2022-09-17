@@ -21,9 +21,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // authLogout: (state) => {
-    //   state.data = {};
-    // },
+    authLogout: (state) => {
+      state.data = {};
+      state.loading = false;
+      state.error = '';
+    },
   },
   extraReducers: {
     [authRequestAsync.pending.type]: (state) => {
@@ -31,23 +33,14 @@ export const authSlice = createSlice({
       state.error = '';
     },
     [authRequestAsync.fulfilled.type]: (state, action) => {
-      // state.post = action.payload.post;
-      // state.comments = action.payload.comments;
-      // state.loading = false;
-      // state.error = action.payload.error;
-      // state.statusLoader = 'loaded';
       state.loading = false;
       state.data = {
         name: action.payload.name,
         img: action.payload.img
       },
-      // state.data = action.payload.data;
       state.error = '';
     },
     [authRequestAsync.rejected.type]: (state, action) => {
-      // state.loading = false;
-      // state.error = action.error.message;
-      // state.statusLoader = 'error';
       state.loading = false;
       state.error = action.error.message;
       state.data = {};

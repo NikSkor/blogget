@@ -16,32 +16,42 @@ export const postsDataSlice = createSlice({
   initialState,
   reducers: {
     changePage: (state, action) => {
-      state.page = action.page;
+      state.page = action.meta.arg;
       state.after = '';
       state.isLast = false;
       state.postsData = [];
+      state.error = '';
     },
   },
   extraReducers: {
     [postsDataRequestAsync.pending.type]: (state) => {
       state.loading = true;
       state.error = '';
-      state.postsData = [];
+      // state.postsData = [];
     },
     [postsDataRequestAsync.fulfilled.type]: (state, action) => {
+      if (state.page !== action.meta.arg) {
+        state.postsData = [];
+      }
       state.loading = false;
       state.error = '';
-      state.postsData = [...state.postsData, ...action.payload.children];
       state.after = action.payload.after;
+      // state.postsData = [...state.postsData, ...action.payload.children];
+      if (action.payload.after) {
+        state.postsData = [...state.postsData, ...action.payload.children];
+      } else {
+        state.postsData = action.payload.children;
+      }
       state.isLast = !action.payload.after;
     },
     [postsDataRequestAsync.rejected.type]: (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      state.postsData = [];
     },
   }
 });
 
-// console.log(postsDataSlice);
+console.log(postsDataSlice);
 
 export default postsDataSlice.reducer;

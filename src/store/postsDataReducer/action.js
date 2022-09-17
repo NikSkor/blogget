@@ -3,6 +3,28 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 // import {postsDataSlice} from './postsDataSlice';
 
+
+export const postsDataRequestAsync =
+  createAsyncThunk('postsData/fetch', (newPage, {getState}) => {
+    const page = newPage || getState().postsData.page;
+    const token = getState().token.token;
+    const after = getState().postsData.after;
+    // const loading = getState().postsData.loading;
+    const isLast = getState().postsData.isLast;
+
+    if (!token || isLast) return;
+
+    return axios(`${URL_API}/${page}?limit=10&
+      ${after ? `after=${after}` : ''}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    }).
+      then(({data}) =>
+        data.data);
+    // .catch((err) => ({error: err}));
+  });
+
 // export const POSTS_DATA_REQUEST = 'POSTS_DATA_REQUEST';
 // export const POSTS_DATA_REQUEST_SUCCESS = 'POSTS_DATA_REQUEST_SUCCESS';
 // export const POSTS_DATA_REQUEST_ERROR = 'POSTS_DATA_REQUEST_ERROR';
@@ -33,7 +55,6 @@ import axios from 'axios';
 // });
 
 // export const changePage = (page) => ({
-//   type: CHANGE_PAGE,
 //   page,
 // });
 
@@ -44,27 +65,6 @@ import axios from 'axios';
 //     dispatch(postsDataSlice.actions.changePage({page}));
 //   }
 // };
-
-export const postsDataRequestAsync =
-  createAsyncThunk('postsData/fetch', (newPage, {getState}) => {
-    const page = newPage || getState().postsData.page;
-    const token = getState().token.token;
-    const after = getState().postsData.after;
-    // const loading = getState().postsData.loading;
-    const isLast = getState().postsData.isLast;
-
-    if (!token || isLast) return;
-
-    return axios(`${URL_API}/${page}?limit=10&
-      ${after ? `after=${after}` : ''}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    }).
-      then(({data}) =>
-        data.data);
-    // .catch((err) => ({error: err}));
-  });
 
 
 // export const postsDataRequestAsync = (newPage) => (dispatch, getState) => {
