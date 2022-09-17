@@ -11,10 +11,10 @@ import Post from './Post';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
-  const data = useSelector(state => state.postsData.postsData);
-  const postsData = [];
+  const postsData = useSelector(state => state.postsData.postsData);
+  // const postsData = [];
   // console.log(data);
-  const redditUrl = 'https://www.reddit.com';
+  // const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
@@ -24,20 +24,20 @@ export const List = () => {
     dispatch(postsDataRequestAsync(page));
   }, [page]);
 
-  data.forEach(({data}) => {
-    postsData.push({
-      title: data.title,
-      author: data.author,
-      linkPost: `${redditUrl}${data.permalink}`,
-      urlImage: data.url,
-      ups: data.score,
-      authorLink: `${redditUrl}/r/${data.subreddit}`,
-      date: data.created,
-      id: data.id,
-      markdown: data.selftext,
-    }
-    );
-  });
+  // data.forEach(({data}) => {
+  //   postsData.push({
+  //     title: data.title,
+  //     author: data.author,
+  //     linkPost: `${redditUrl}${data.permalink}`,
+  //     urlImage: data.url,
+  //     ups: data.score,
+  //     authorLink: `${redditUrl}/r/${data.subreddit}`,
+  //     date: data.created,
+  //     id: data.id,
+  //     markdown: data.selftext,
+  //   }
+  //   );
+  // });
 
   useEffect(() => {
     // if (!postsData.length) return;
@@ -109,7 +109,7 @@ export const List = () => {
       <ul className={style.list}>
         {
           postsData.map((postsItem) => (
-            <Post key={postsItem.id} postData={postsItem} />
+            <Post key={postsItem.data.id} postData={postsItem.data} />
           ))
         }
         <li ref={endList} className={style.end}></li>
