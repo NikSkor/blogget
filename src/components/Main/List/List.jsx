@@ -6,44 +6,46 @@ import {postsDataRequestAsync}
   from '../../../store/postsDataReducer/action';
 import style from './List.module.css';
 import Post from './Post';
+import {postsDataSlice} from '../../../store/postsDataReducer/postsDataSlice';
 // import {postsContext} from '../../../context/postsContext';
 // import {useSelector} from 'react-redux';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
-  const postsData = useSelector(state => state.postsData.postsData);
-  // const postsData = [];
+  const data = useSelector(state => state.postsData.postsData);
+  const token = useSelector(state => state.token.token);
+  const postsData = [];
   // console.log(data);
-  // const redditUrl = 'https://www.reddit.com';
+  const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
 
-
   useEffect(() => {
-    dispatch(postsDataRequestAsync(page));
+    dispatch(postsDataSlice.actions.changePage(page));
   }, [page]);
 
-  // data.forEach(({data}) => {
-  //   postsData.push({
-  //     title: data.title,
-  //     author: data.author,
-  //     linkPost: `${redditUrl}${data.permalink}`,
-  //     urlImage: data.url,
-  //     ups: data.score,
-  //     authorLink: `${redditUrl}/r/${data.subreddit}`,
-  //     date: data.created,
-  //     id: data.id,
-  //     markdown: data.selftext,
-  //   }
-  //   );
-  // });
+
+  data.forEach(({data}) => {
+    postsData.push({
+      title: data.title,
+      author: data.author,
+      linkPost: `${redditUrl}${data.permalink}`,
+      urlImage: data.url,
+      ups: data.score,
+      authorLink: `${redditUrl}/r/${data.subreddit}`,
+      date: data.created,
+      id: data.id,
+      markdown: data.selftext,
+    }
+    );
+  });
 
   useEffect(() => {
-    // if (!postsData.length) return;
+    if (!token) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsDataRequestAsync(page));
+        dispatch(postsDataRequestAsync());
       }
     }, {
       rootMargin: '100px',
@@ -55,7 +57,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, []);
 
   // console.log(postsData);
 
@@ -109,7 +111,7 @@ export const List = () => {
       <ul className={style.list}>
         {
           postsData.map((postsItem) => (
-            <Post key={postsItem.data.id} postData={postsItem.data} />
+            <Post key={postsItem.id} postData={postsItem} />
           ))
         }
         <li ref={endList} className={style.end}></li>

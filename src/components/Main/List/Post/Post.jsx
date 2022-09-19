@@ -10,17 +10,15 @@ import RatingPanel from './RatingPanel';
 import TimeLabel from './TimeLabel';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, url, permalink,
-    subreddit, created, markdown, id} = postData;
-  const redditUrl = 'https://www.reddit.com';
+  const {title, author, ups, urlImage, linkPost,
+    authorLink, date, markdown, id} = postData;
   // console.log(postData);
   return (
     <li className={style.post}>
-      <AuthorPhoto title={title} img={url}/>
+      <AuthorPhoto title={title} img={urlImage}/>
       {/* <img className={style.img} src={notphoto} alt={title} /> */}
-      <PostContent title={title} author={author}
-        authorLink={`${redditUrl}/r/${subreddit}`}
-        linkPost={`${redditUrl}${permalink}`} markdown={markdown} id={id}/>
+      <PostContent title={title} author={author} authorLink={authorLink}
+        linkPost={linkPost} markdown={markdown} id={id}/>
       {/* <div className={style.content}>
         <h2 className={style.title}>
           <a className={style.linkPost} href="#post">
@@ -39,7 +37,7 @@ export const Post = ({postData}) => {
        * где то ещё, она даёт доп функцию Post,
        * а так не надо делать,
        * лучше вынести в отдельный компонент */}
-      <TimeLabel date={created} />
+      <TimeLabel date={date} />
       {/* <time className={style.date}
       dateTime={date}>{formatDate(date)}</time> */}
     </li>

@@ -16,7 +16,7 @@ export const postsDataSlice = createSlice({
   initialState,
   reducers: {
     changePage: (state, action) => {
-      state.page = action.meta.arg;
+      state.page = action.payload;
       state.after = '';
       state.isLast = false;
       state.postsData = [];
@@ -34,6 +34,11 @@ export const postsDataSlice = createSlice({
       state.error = '';
       state.after = action.payload.after;
       state.postsData = [...state.postsData, ...action.payload.children];
+      // if (action.payload.after) {
+      //   state.postsData = [...state.postsData, ...action.payload.children];
+      // } else {
+      //   state.postsData = action.payload.children;
+      // }
       state.isLast = !action.payload.after;
     },
     [postsDataRequestAsync.rejected.type]: (state, action) => {
@@ -44,6 +49,6 @@ export const postsDataSlice = createSlice({
   }
 });
 
-console.log(postsDataSlice);
+// console.log(postsDataSlice);
 
 export default postsDataSlice.reducer;
