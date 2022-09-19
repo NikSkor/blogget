@@ -14,14 +14,14 @@ export const postsDataRequestAsync =
 
     if (!token || isLast) return;
 
-    return axios(`${URL_API}/${page}?limit=10&
-      ${after ? `after=${after}` : ''}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
+    return axios(
+      `${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       },
-    }).
-      then(({data}) =>
-        data.data);
+    ).then(({data}) => data.data);
     // .catch((err) => ({error: err}));
   });
 

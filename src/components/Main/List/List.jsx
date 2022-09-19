@@ -7,6 +7,8 @@ import {postsDataRequestAsync}
 import style from './List.module.css';
 import Post from './Post';
 import {postsDataSlice} from '../../../store/postsDataReducer/postsDataSlice';
+import {generateRandomId}
+  from '../../../utils/generateRandomId/generateRandomId';
 // import {postsContext} from '../../../context/postsContext';
 // import {useSelector} from 'react-redux';
 
@@ -37,6 +39,7 @@ export const List = () => {
       date: data.created,
       id: data.id,
       markdown: data.selftext,
+      keyId: generateRandomId(),
     }
     );
   });
@@ -111,7 +114,7 @@ export const List = () => {
       <ul className={style.list}>
         {
           postsData.map((postsItem) => (
-            <Post key={postsItem.id} postData={postsItem} />
+            <Post key={postsItem.keyId} postData={postsItem} />
           ))
         }
         <li ref={endList} className={style.end}></li>
