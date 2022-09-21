@@ -5,7 +5,7 @@ import {ReactComponent as CloseIcon} from './img/close.svg';
 // import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import {useRef} from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
 import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
@@ -19,29 +19,33 @@ export const Modal = () => {
   const overlayRef = useRef(null);
   const status = useSelector(state => state.commentsData.statusLoader);
   const error = useSelector(state => state.commentsData.error);
-  const commentsData = useCommentsData(id);
-  const [titlePost, setTitlePost] = useState('');
-  const [authorPost, setAuthorPost] = useState('');
-  const [contentPost, setContentPost] = useState('');
+  const {post, comments} = useCommentsData(id);
+  // const [titlePost, setTitlePost] = useState('');
+  // const [authorPost, setAuthorPost] = useState('');
+  // const [contentPost, setContentPost] = useState('');
   // const [isLoading, setIsLoading] = useState(false);
-  const [comments, setComments] = useState([]);
-  let post = {};
+  // const [comments, setComments] = useState([]);
+  // let post = {};
 
-  // console.log(commentsData.comments);
-  useEffect(() => {
-    // console.log(status);
-    if (!Object.hasOwn(commentsData, 'comments')) {
-      // setIsLoading(false);
-      return;
-    } else {
-      post = {...commentsData.post};
-      setComments([...commentsData.comments]);
-      setTitlePost(post.title);
-      setAuthorPost(post.author);
-      setContentPost(post.selftext);
-      // setIsLoading(true);
-    }
-  }, [commentsData]);
+  // console.log(commentsData);
+  // if (status === 'loaded') {
+  //   useEffect(() => {
+  //     // console.log(status);
+  //     if (!Object.hasOwn(commentsData, 'comments')) {
+  //       // setIsLoading(false);
+  //       return;
+  //     } else {
+  //       post = {...commentsData.post};
+  //       setComments([...commentsData.comments]);
+  //       setTitlePost(post.title);
+  //       setAuthorPost(post.author);
+  //       setContentPost(post.selftext);
+  //       // setIsLoading(true);
+  //     }
+  //   }, []);
+  //   // console.log(commentsData);
+  // }
+
   // console.log(isLoading);
   const handleClick = e => {
     const target = e.target;
@@ -103,7 +107,7 @@ export const Modal = () => {
       }
       {status === 'loaded' &&
         <div className={style.modal}>
-          <h2 className={style.title}>{titlePost}</h2>
+          <h2 className={style.title}>{post.title}</h2>
           <div className={style.content}>
             <Markdown options={{
               overrides: {
@@ -114,10 +118,10 @@ export const Modal = () => {
                 }
               }
             }}>
-              {contentPost}
+              {post.selftext}
             </Markdown>
           </div>
-          <p className={style.author}>{authorPost}</p>
+          <p className={style.author}>{post.author}</p>
           <FormComment />
           <Comments comments={comments} />
           <button className={style.close} onClick={handleClose}>

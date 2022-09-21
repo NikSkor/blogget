@@ -2,25 +2,31 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Outlet, useParams} from 'react-router-dom';
 // import {useBest} from '../../../hooks/useBest';
-import {postsDataRequestAsync} from '../../../store/postsDataReducer/action';
+import {postsDataRequestAsync}
+  from '../../../store/postsDataReducer/action';
 import style from './List.module.css';
 import Post from './Post';
+import {postsDataSlice} from '../../../store/postsDataReducer/postsDataSlice';
+import {generateRandomId}
+  from '../../../utils/generateRandomId/generateRandomId';
 // import {postsContext} from '../../../context/postsContext';
 // import {useSelector} from 'react-redux';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
   const data = useSelector(state => state.postsData.postsData);
+  const token = useSelector(state => state.token.token);
   const postsData = [];
+  // console.log(data);
   const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
-  // console.log(page);
 
   useEffect(() => {
-    dispatch(postsDataRequestAsync(page));
+    dispatch(postsDataSlice.actions.changePage(page));
   }, [page]);
+
 
   data.forEach(({data}) => {
     postsData.push({
@@ -33,12 +39,13 @@ export const List = () => {
       date: data.created,
       id: data.id,
       markdown: data.selftext,
+      keyId: generateRandomId(),
     }
     );
   });
 
   useEffect(() => {
-    // if (!postsData.length) return;
+    if (!token) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         dispatch(postsDataRequestAsync());
@@ -46,7 +53,6 @@ export const List = () => {
     }, {
       rootMargin: '100px',
     });
-
     observer.observe(endList.current);
 
     return () => {
@@ -54,7 +60,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, []);
 
   // console.log(postsData);
 
@@ -108,7 +114,7 @@ export const List = () => {
       <ul className={style.list}>
         {
           postsData.map((postsItem) => (
-            <Post key={postsItem.id} postData={postsItem} />
+            <Post key={postsItem.keyId} postData={postsItem} />
           ))
         }
         <li ref={endList} className={style.end}></li>

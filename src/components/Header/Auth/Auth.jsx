@@ -14,6 +14,7 @@ export const Auth = () => {
   const dispatch = useDispatch();
   const [isLogout, setIsLogout] = useState(false);
   const [auth, loading, clearAuth] = useAuth();
+  // const token = useSelector(state => state.token.token);
 
   const handleLogout = e => {
     e.preventDefault();
@@ -28,7 +29,7 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      {loading ? (
+      {(loading) ? (
         <PreLoader/>
       ) : auth.name ? (
         <>
