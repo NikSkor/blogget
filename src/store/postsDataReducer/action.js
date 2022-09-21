@@ -4,6 +4,10 @@ import axios from 'axios';
 export const POSTS_DATA_REQUEST = 'POSTS_DATA_REQUEST';
 export const POSTS_DATA_REQUEST_SUCCESS = 'POSTS_DATA_REQUEST_SUCCESS';
 export const POSTS_DATA_REQUEST_ERROR = 'POSTS_DATA_REQUEST_ERROR';
+export const POSTS_DATA_REQUEST_SUCCESS_AFTER =
+  'POSTS_DATA_REQUEST_SUCCESS_AFTER';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+
 
 export const postDataRequest = () => ({
   type: POSTS_DATA_REQUEST,
@@ -12,6 +16,13 @@ export const postDataRequest = () => ({
 export const postDataRequestSuccess = (postsData) => ({
   type: POSTS_DATA_REQUEST_SUCCESS,
   postsData: postsData.children,
+  after: postsData.after,
+});
+
+export const postDataRequestSuccessAfter = (postsData) => ({
+  type: POSTS_DATA_REQUEST_SUCCESS_AFTER,
+  postsData: postsData.children,
+  after: postsData.after,
 });
 
 export const postDataRequestError = (error) => ({
@@ -19,35 +30,37 @@ export const postDataRequestError = (error) => ({
   error,
 });
 
-export const postsDataRequestAsync = () => (dispatch, getState) => {
-  // let listArray = [];
-  // const posts = [];
-  // const redditUrl = 'https://www.reddit.com';
+export const changePage = (page) => ({
+  type: CHANGE_PAGE,
+  page
+});
+
+export const postsDataRequestAsync = (newPage) => (dispatch, getState) => {
+  let page = getState().postsData.page;
+  if (newPage) {
+    page = newPage;
+    dispatch(changePage(page));
+  }
+
   const token = getState().token.token;
-  if (!token) return;
+  const after = getState().postsData.after;
+  const loading = getState().postsData.loading;
+  const isLast = getState().postsData.isLast;
+
+
+  if (!token || loading || isLast) return;
   dispatch(postDataRequest());
-  axios(`${URL_API}/best?limit=20`, {
+  axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
   }).
     then(({data}) => {
-      // listArray = [...data.children];
-      // listArray.forEach(({data}) => {
-      //   posts.push({
-      //     title: data.title,
-      //     author: data.author,
-      //     linkPost: `${redditUrl}${data.permalink}`,
-      //     urlImage: data.url,
-      //     ups: data.score,
-      //     authorLink: `${redditUrl}/r/${data.subreddit}`,
-      //     date: data.created,
-      //     id: data.id,
-      //     markdown: data.selftext,
-      //   }
-      //   );
-      // });
-      dispatch(postDataRequestSuccess(data.data));
+      if (after) {
+        dispatch(postDataRequestSuccessAfter(data.data));
+      } else {
+        dispatch(postDataRequestSuccess(data.data));
+      }
     }).catch((err) => {
       dispatch(postDataRequestError(err.toString()));
     });

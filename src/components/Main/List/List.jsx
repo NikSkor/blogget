@@ -1,5 +1,8 @@
-import React from 'react';
-import {useBest} from '../../../hooks/useBest';
+import React, {useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Outlet, useParams} from 'react-router-dom';
+// import {useBest} from '../../../hooks/useBest';
+import {postsDataRequestAsync} from '../../../store/postsDataReducer/action';
 import style from './List.module.css';
 import Post from './Post';
 // import {postsContext} from '../../../context/postsContext';
@@ -7,9 +10,17 @@ import Post from './Post';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
-  const data = useBest();
+  const data = useSelector(state => state.postsData.postsData);
   const postsData = [];
   const redditUrl = 'https://www.reddit.com';
+  const endList = useRef(null);
+  const dispatch = useDispatch();
+  const {page} = useParams();
+  // console.log(page);
+
+  useEffect(() => {
+    dispatch(postsDataRequestAsync(page));
+  }, [page]);
 
   data.forEach(({data}) => {
     postsData.push({
@@ -26,7 +37,26 @@ export const List = () => {
     );
   });
 
-  console.log(postsData);
+  useEffect(() => {
+    // if (!postsData.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        dispatch(postsDataRequestAsync());
+      }
+    }, {
+      rootMargin: '100px',
+    });
+
+    observer.observe(endList.current);
+
+    return () => {
+      if (endList.current) {
+        observer.unobserve(endList.current);
+      }
+    };
+  }, [endList.current]);
+
+  // console.log(postsData);
 
   // console.log(postsData);
   // console.log(postsArray);
@@ -74,12 +104,16 @@ export const List = () => {
   // ];
 
   return (
-    <ul className={style.list}>
-      {
-        postsData.map((postsItem) => (
-          <Post key={postsItem.id} postData={postsItem} />
-        ))
-      }
-    </ul>
+    <>
+      <ul className={style.list}>
+        {
+          postsData.map((postsItem) => (
+            <Post key={postsItem.id} postData={postsItem} />
+          ))
+        }
+        <li ref={endList} className={style.end}></li>
+      </ul>
+      <Outlet/>
+    </>
   );
 };
