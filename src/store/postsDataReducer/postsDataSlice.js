@@ -33,12 +33,12 @@ export const postsDataSlice = createSlice({
       state.loading = false;
       state.error = '';
       state.after = action.payload.after;
-      state.postsData = [...state.postsData, ...action.payload.children];
-      // if (action.payload.after) {
-      //   state.postsData = [...state.postsData, ...action.payload.children];
-      // } else {
-      //   state.postsData = action.payload.children;
-      // }
+      // state.postsData = [...state.postsData, ...action.payload.children];
+      if (action.payload.after) {
+        state.postsData = [...state.postsData, ...action.payload.children];
+      } else {
+        state.postsData = action.payload.children;
+      }
       state.isLast = !action.payload.after;
     },
     [postsDataRequestAsync.rejected.type]: (state, action) => {
