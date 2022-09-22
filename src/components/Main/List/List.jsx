@@ -9,24 +9,38 @@ import Post from './Post';
 import {postsDataSlice} from '../../../store/postsDataReducer/postsDataSlice';
 import {generateRandomId}
   from '../../../utils/generateRandomId/generateRandomId';
+import {clearSearch, searchRequest} from '../../../store/search/searchAction';
 // import {postsContext} from '../../../context/postsContext';
 // import {useSelector} from 'react-redux';
 
 export const List = () => {
   // const postsArray = useContext(postsContext);
-  const data = useSelector(state => state.postsData.postsData);
+  const dataPosts = useSelector(state => state.postsData.postsData);
+  const dataSearch = useSelector(state => state.search.postsData);
+  const search = useSelector(state => state.search.search);
+  const isActive = useSelector(state => state.search.isActive);
   const token = useSelector(state => state.token.token);
+  let data = [];
   const postsData = [];
+  // console.log(dataSearch);
   // console.log(data);
   const redditUrl = 'https://www.reddit.com';
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
 
+
   useEffect(() => {
     dispatch(postsDataSlice.actions.changePage(page));
+    dispatch(clearSearch());
   }, [page]);
 
+  if (!isActive) {
+    data = [...dataPosts];
+  } else {
+    data = [...dataSearch];
+  }
+  // console.log(data);
 
   data.forEach(({data}) => {
     postsData.push({
@@ -48,7 +62,11 @@ export const List = () => {
     if (!token) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsDataRequestAsync());
+        if (!isActive) {
+          dispatch(postsDataRequestAsync());
+        } else {
+          dispatch(searchRequest(search));
+        }
       }
     }, {
       rootMargin: '100px',
@@ -60,7 +78,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, []);
+  });
 
   // console.log(postsData);
 

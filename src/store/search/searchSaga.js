@@ -6,8 +6,12 @@ import {searchRequestError,
 
 function* fetchSearch(search) {
   const token = yield select(state => state.token.token);
+  const after = yield select(state => state.search.after);
+  const isLast = yield select(state => state.search.isLast);
+  if (!token || isLast) return;
   try {
-    const request = yield axios(`${URL_API}/search?q=${search}`, {
+    // eslint-disable-next-line max-len
+    const request = yield axios(`${URL_API}/search?q=${search}&limit=10&${after ? `after=${after}` : ''}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
@@ -21,6 +25,7 @@ function* fetchSearch(search) {
 export function* watchSearch() {
   yield takeLatest(SEARCH_REQUEST, fetchSearch);
 }
+
 
 // const fetchSearch = async (search, token) => {
 //   const request = await axios(`${URL_API}/search?q=${search}`, {

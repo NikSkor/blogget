@@ -1,4 +1,4 @@
-import {SEARCH_REQUEST,
+import {CLEAR_SEARCH, SEARCH_REQUEST,
   SEARCH_REQUEST_ERROR,
   SEARCH_REQUEST_SUCCESS} from './searchAction';
 
@@ -9,6 +9,8 @@ const initialState = {
   after: '',
   isLast: false,
   page: '',
+  search: '',
+  isActive: false,
 };
 
 export const searchReducer = (state = initialState, action) => {
@@ -18,20 +20,34 @@ export const searchReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: '',
+        search: action.search,
+        // postsData: [],
       };
     case SEARCH_REQUEST_SUCCESS:
       return {
         ...state,
         loading: false,
-        postsData: action.postsData,
+        postsData: [...state.postsData, ...action.postsData],
         error: '',
         after: action.after,
+        isLast: !action.after,
+        isActive: true,
       };
     case SEARCH_REQUEST_ERROR:
       return {
         ...state,
         loading: false,
         error: action.error,
+        postsData: [],
+      };
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        postsData: [],
+        after: '',
+        isLast: false,
+        search: '',
+        isActive: false,
       };
     default:
       return state;
