@@ -9,7 +9,8 @@ import Post from './Post';
 import {postsDataSlice} from '../../../store/postsDataReducer/postsDataSlice';
 import {generateRandomId}
   from '../../../utils/generateRandomId/generateRandomId';
-import {clearSearch, searchRequest} from '../../../store/search/searchAction';
+import {clearSearch, clearSearchData,
+  searchRequest} from '../../../store/search/searchAction';
 // import {postsContext} from '../../../context/postsContext';
 // import {useSelector} from 'react-redux';
 
@@ -32,6 +33,7 @@ export const List = () => {
 
   useEffect(() => {
     dispatch(postsDataSlice.actions.changePage(page));
+    dispatch(clearSearchData());
     dispatch(clearSearch());
   }, [page]);
 

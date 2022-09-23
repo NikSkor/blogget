@@ -3,7 +3,8 @@ import style from './Search.module.css';
 import {ReactComponent as SearchIcon} from './img/search.svg';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
-import {clearSearch, searchRequest} from '../../../store/search/searchAction';
+import {clearSearchData,
+  searchRequest} from '../../../store/search/searchAction';
 
 export const Search = () => {
   const dispatch = useDispatch();
@@ -11,9 +12,10 @@ export const Search = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(searchRequest({search}));
+    console.log(search);
+    dispatch(searchRequest(search));
     setSearch('');
-    dispatch(clearSearch());
+    dispatch(clearSearchData());
   };
 
   return (

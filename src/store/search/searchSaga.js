@@ -4,9 +4,13 @@ import axios from 'axios';
 import {searchRequestError,
   searchRequestSuccess, SEARCH_REQUEST} from './searchAction';
 
-function* fetchSearch(search) {
+function* fetchSearch({search}) {
   const token = yield select(state => state.token.token);
   const after = yield select(state => state.search.after);
+  // if (typeof search !== 'string') {
+  //   search = search.search.search;
+  // }
+  console.log(search);
   const isLast = yield select(state => state.search.isLast);
   if (!token || isLast) return;
   try {

@@ -1,4 +1,6 @@
-import {CLEAR_SEARCH, SEARCH_REQUEST,
+import {
+  CLEAR_SEARCH,
+  CLEAR_SEARCH_DATA, SEARCH_REQUEST,
   SEARCH_REQUEST_ERROR,
   SEARCH_REQUEST_SUCCESS} from './searchAction';
 
@@ -43,10 +45,15 @@ export const searchReducer = (state = initialState, action) => {
     case CLEAR_SEARCH:
       return {
         ...state,
+        search: '',
+      };
+    case CLEAR_SEARCH_DATA:
+      return {
+        ...state,
         postsData: [],
         after: '',
         isLast: false,
-        search: '',
+        // search: '',
         isActive: false,
       };
     default:
