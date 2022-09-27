@@ -7,6 +7,11 @@ import {commentReducer} from './commentReducer';
 // import thunk from 'redux-thunk';
 import postsDataReducer from './postsDataReducer/postsDataSlice';
 import commentsDataReducer from './commentsDataReducer/commentsDataSlice';
+import createSagaMiddleware from '@redux-saga/core';
+import rootSaga from './saga';
+import {searchReducer} from './search/searchReducer';
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
@@ -15,10 +20,13 @@ export const store = configureStore({
     auth: authReducer,
     postsData: postsDataReducer,
     commentsData: commentsDataReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(tokenMiddleware),
+    getDefaultMiddleware().concat(tokenMiddleware, sagaMiddleware),
 });
+
+sagaMiddleware.run(rootSaga);
 
 // const rootReducer = combineReducers({
 //   token: tokenReducer,
@@ -33,4 +41,4 @@ export const store = configureStore({
 //   rootReducer,
 //   composeWithDevTools(applyMiddleware(tokenMiddleware, thunk))
 // );
-console.log(store);
+// console.log(store);

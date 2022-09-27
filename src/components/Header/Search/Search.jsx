@@ -1,12 +1,32 @@
 import React from 'react';
 import style from './Search.module.css';
 import {ReactComponent as SearchIcon} from './img/search.svg';
+import {useDispatch} from 'react-redux';
+import {useState} from 'react';
+import {clearSearchData,
+  searchRequest} from '../../../store/search/searchAction';
 
 export const Search = () => {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    // console.log(search);
+    dispatch(clearSearchData());
+    dispatch(searchRequest(search));
+    setSearch('');
+  };
+
   return (
-    <form className={style.form}>
-      <input type='search' className={style.search}/>
-      <button className={style.button}>
+    <form className={style.form} onSubmit={handleSubmit}>
+      <input
+        type='search'
+        className={style.search}
+        onChange={e => setSearch(e.target.value)}
+        value={search}
+      />
+      <button className={style.button} type='submit'>
         <SearchIcon className={style.svg} width="128" height="128" />
         {/* <svg className={style.svg} width="128" height="128" viewBox="0 0 128 128" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <g>
