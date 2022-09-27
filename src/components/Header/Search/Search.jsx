@@ -12,10 +12,10 @@ export const Search = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(search);
+    // console.log(search);
+    dispatch(clearSearchData());
     dispatch(searchRequest(search));
     setSearch('');
-    dispatch(clearSearchData());
   };
 
   return (
