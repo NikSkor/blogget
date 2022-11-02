@@ -1,5 +1,7 @@
 # Blogget project developed with React.
 
+Деплой проекта можно посмотреть на https://vercel.com/nikskor/blogget-nikskor .
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
